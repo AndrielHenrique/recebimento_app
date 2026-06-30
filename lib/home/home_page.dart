@@ -10,13 +10,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late bool isAdmin;
-  late HomeController controller;
+  late final bool isAdmin;
+  late final HomeController controller;
+  late final String usernameLogado;
+
+  bool _carregado = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    isAdmin = ModalRoute.of(context)?.settings.arguments as bool? ?? false;
+
+    if (_carregado) return;
+    _carregado = true;
+
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    usernameLogado = args['username'] ?? '';
+    isAdmin = args['isAdmin'] as bool? ?? false;
     controller = HomeController();
   }
 
@@ -77,7 +88,11 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Recebimento Genérico"),
         actions: [
           IconButton(
-            onPressed: () => Navigator.pushNamed(context, '/perfil'),
+            onPressed: () => Navigator.pushNamed(
+              context,
+              '/perfil',
+              arguments: usernameLogado,
+            ),
             icon: const Icon(Icons.person_outline),
             tooltip: 'Editar perfil',
           ),
@@ -96,9 +111,9 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Bem-vindo",
-                  style: TextStyle(
+                Text(
+                  'Bem-vindo, $usernameLogado!',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
