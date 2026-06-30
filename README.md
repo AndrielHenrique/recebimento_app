@@ -1,4 +1,6 @@
 # PDMDE - RECEBIMENTO
+##Integrantes do Grupo:
+###Andriel Lima, Claudio Santana, Igor Teles e Pedro Martins
 
 ## Visão Geral
 
