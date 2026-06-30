@@ -65,7 +65,10 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pushReplacementNamed(
       context,
       '/home',
-      arguments: controller.isAdmin(username: username, password: password),
+      arguments: {
+        'username': username,
+        'isAdmin': controller.isAdmin(username: username, password: password),
+      },
     );
   }
 

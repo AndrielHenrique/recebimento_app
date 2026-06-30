@@ -22,10 +22,15 @@ class _PerfilViewState extends State<PerfilView> {
 
   bool _carregando = false;
   Usuario? _usuarioAtual;
+  bool _initialized = false;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (_initialized) return;
+    _initialized = true;
+
     _carregarUsuario();
   }
 
@@ -39,10 +44,25 @@ class _PerfilViewState extends State<PerfilView> {
   }
 
   Future<void> _carregarUsuario() async {
-    final usuarios = await UsuarioDAO.carregarUsuarios();
+    final args = ModalRoute.of(context)?.settings.arguments;
+
+    debugPrint("ARGS: $args");
+    String login = '';
+
+    if (args is String) {
+      login = args;
+    } else if (args is Map) {
+      login = (args['username'] ?? args['login'] ?? '').toString();
+    }
+
+    if (login.isEmpty) {
+      return;
+    }
+
+    final usuario = await UsuarioDAO.buscarPorLogin(login);
     if (!mounted) return;
-    if (usuarios.isNotEmpty) {
-      final usuario = usuarios.first;
+
+    if (usuario != null) {
       _usuarioAtual = usuario;
       _nomeController.text = usuario.nome;
       _emailController.text = usuario.email;
