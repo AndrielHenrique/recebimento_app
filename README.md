@@ -1,8 +1,8 @@
-# PDMDE
+# PDMDE - RECEBIMENTO
 
 ## Visão Geral
 
-O **PDMDE** é um aplicativo desenvolvido em **Flutter/Dart** para a
+O **PDMDE RECEBIMENTO** é um aplicativo desenvolvido em **Flutter/Dart** para a
 disciplina de **Programação para Dispositivos Móveis**. O sistema tem
 como objetivo gerenciar o recebimento de materiais, especificamente
 barras de aço, vinculadas às Autorizações de Fornecimento (AF).
